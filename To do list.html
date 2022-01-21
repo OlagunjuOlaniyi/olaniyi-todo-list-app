@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>To Do List</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial scale=1.0">
+	<style>
+		body {
+			margin: 0;
+			background-color: #0099ff;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		.container {
+			width: 100%;
+			margin: 50px auto;
+			padding: 20px;
+			margin-bottom: 0;
+			background-color: #000000;
+			text-align: center;
+			font-size: 20px;
+			color: #ffffff;
+			padding-bottom: 30px;
+		}
+
+		input {
+			width: 70%;
+			padding: 10px;
+			outline: none;
+			border: none;
+			font-size: 20px;
+		}
+
+		button {
+			width: 20%;
+			padding: 10px;
+			outline: none;
+			cursor: pointer;
+			border: none;
+			background-color: #0099ff;
+			font-size: 20px;
+		}
+
+		button:hover {
+			background-color: #ffffff;
+			color: #0099ff;
+			transition: 0.5s;
+		}
+
+		.listing {
+			width: 100%;
+			margin-top: -15px;
+		}
+
+		ul li {
+			padding: 12px 8px 12px 40px;
+			list-style-type: none;
+			font-size: 20px;
+			cursor: pointer;
+			background-color: #000000;
+			color: #ffffff;
+			border: 1px solid #ffffff;
+			user-select: none;
+			margin-left: -40px;
+		}
+
+		ul li:hover {
+			background-color: gray;
+			transition: 0.7s;
+		}
+
+		ul li:nth-child(odd) {
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		ul li.checked {
+  			background: #888;
+  			color: #fff;
+  			text-decoration: line-through;
+		}
+
+		ul li.checked::before {
+  			content: '';
+  			position: absolute;
+  			border-color: #ffffff;
+  			border-style: solid;
+  			border-width: 0 2px 2px 0;
+  			top: auto;
+  			left: auto;
+  			margin-left: -25px;
+  			transform: rotate(45deg);
+  			height: 15px;
+ 	 		width: 7px;
+		}
+
+		.close {
+  			position: absolute;
+  			margin-top: -12px;
+  			right: 0;
+  			padding: 12px 16px 12px 16px;
+		}
+
+		.close:hover {
+  			background-color: #f44336;
+  			color: white;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<h1>My To Do List Project</h1>
+		<input type="text" id="myInput" placeholder="Title...">
+		<button class="addBtn" onclick="newElement()">Add</button>
+	</div>
+
+	<div class="listing">
+	<ul id="myList">
+		<li>HTML Tutorial</li>
+		<li class="checked">CSS Tutorial</li>
+		<li>Javascript Tutorial</li>
+		<li>Jquery Tutorial</li>
+		<li>Bootstrap Tutorial</li>
+	</ul></div>
+
+
+<script>
+	var myNodelist = document.getElementsByTagName("LI");
+	var i;
+	for (i = 0; i < myNodelist.length; i++) {
+  	var span = document.createElement("SPAN");
+  	var txt = document.createTextNode("\u00D7");
+  	span.className = "close";
+  	span.appendChild(txt);
+  	myNodelist[i].appendChild(span);
+	}
+
+	// Click on a close button to hide the current list item
+	var close = document.getElementsByClassName("close");
+	var i;
+	for (i = 0; i < close.length; i++) {
+	  close[i].onclick = function() {
+	    var div = this.parentElement;
+	    div.style.display = "none";
+	  }
+	}
+
+	// Add a "checked" symbol when clicking on a list item
+	var list = document.querySelector('ul');
+	list.addEventListener('click', function(ev) {
+	  if (ev.target.tagName === 'LI') {
+	    ev.target.classList.toggle('checked');
+	  }
+	}, false);
+
+	// Create a new list item when clicking on the "Add" button
+	function newElement() {
+	  var li = document.createElement("li");
+	  var inputValue = document.getElementById("myInput").value;
+	  var t = document.createTextNode(inputValue);
+	  li.appendChild(t);
+	  if (inputValue === '') {
+	    alert("You must write something!");
+	  } else {
+	    document.getElementById("myList").appendChild(li);
+	  }
+	  document.getElementById("myInput").value = "";
+
+	  var span = document.createElement("SPAN");
+	  var txt = document.createTextNode("\u00D7");
+	  span.className = "close";
+	  span.appendChild(txt);
+	  li.appendChild(span);
+
+	  for (i = 0; i < close.length; i++) {
+	    close[i].onclick = function() {
+	      var div = this.parentElement;
+	      div.style.display = "none";
+	    }
+	  }
+	}
+</script>
+</body>
+</html>
